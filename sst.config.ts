@@ -1,5 +1,5 @@
-import { SSTConfig } from "sst";
-import { NextjsSite } from "sst/constructs";
+import {SSTConfig} from "sst";
+import {NextjsSite} from "sst/constructs";
 
 export default {
   config(_input) {
@@ -12,6 +12,9 @@ export default {
     app.stack(function Site(ctx) {
       const site = new NextjsSite(ctx.stack, "dropin-next-app", {
         path: ".",
+        environment: {
+          FOO: process.env.FOO || "WHAT",
+        },
       });
       ctx.stack.addOutputs({
         SiteUrl: site.url || "http://localhost:3000",
